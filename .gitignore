@@ -22,4 +22,4 @@ venv/
 filestore/
 
 # Ignore sale_service file
-custom_addons/sale_service
+sale_service/
