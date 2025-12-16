@@ -1,0 +1,61 @@
+<odoo>
+    <!-- ============================
+         List View
+    =============================== -->
+    <record id="view_ss_sale_order_list" model="ir.ui.view">
+        <field name="name">ss.sale.order.list</field>
+        <field name="model">ss.sale.order</field>
+        <field name="arch" type="xml">
+            <list string="Sale Orders">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+                <field name="delivery_status"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================
+         Form View
+    =============================== -->
+    <record id="view_ss_sale_order_form" model="ir.ui.view">
+        <field name="name">ss.sale.order.form</field>
+        <field name="model">ss.sale.order</field>
+        <field name="arch" type="xml">
+            <form string="Sale Order">
+                <header>
+                    <!-- <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
+                    <button name="action_done" type="object" string="Done" states="confirm" class="btn-success"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,confirm" class="btn-warning"/> -->
+                    <!-- Optional: Add a report button here if you create the report action -->
+                    <!-- <button name="%(sale_service.action_report_ss_sale_order)s" type="action" string="Print Order" class="btn-secondary"/> -->
+                </header>
+                <!-- <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="user_id"/>
+                        <field name="state" readonly="1"/>
+                        <field name="delivery_status"/>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="amount_total" readonly="1"/>
+                    </group>
+                </sheet> -->
+            </form>
+        </field>
+    </record>
+</odoo>

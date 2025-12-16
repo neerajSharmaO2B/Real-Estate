@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Odoo
+*.log
+.odoo/
+sessions/
+
+# Virtualenv
+venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# PostgreSQL dumps
+*.sql
+
+# Odoo filestore
+filestore/
+
+# Ignore sale_service file
+custom_addons/sale_service

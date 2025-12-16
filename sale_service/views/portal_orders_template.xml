@@ -1,0 +1,29 @@
+<odoo>
+    <template id="portal_orders" name="My Orders">
+        <t t-call="website.layout">
+            <div class="container mt16">
+                <h2>My Sale & Service Orders</h2>
+                <table class="table table-striped mt16">
+                    <thead>
+                        <tr>
+                            <th>Order Name</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Print</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="orders" t-as="order">
+                            <td><t t-esc="order.name"/></td>
+                            <td><t t-esc="order.state"/></td>
+                            <td><t t-esc="order.amount_total"/></td>
+                            <td>
+                                <a t-att-href="'/web/action/%d' % order.id" target="_blank">PDF</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,151 @@
+<odoo>
+    <!-- ============================
+         LIST VIEW
+    =============================== -->
+    <record id="estate_property_list_view" model="ir.ui.view">
+        <field name="name">estate.property.list</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <list string="Properties">
+                <field name="name"/>
+                <field name="property_type_id"/>
+                <field name="postcode"/>
+                <field name="property_tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================
+         FORM VIEW
+    =============================== -->
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">estate.property.form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Estate Property">
+
+                <!-- HEADER (must be OUTSIDE sheet) -->
+                <header>
+                    <!-- SOLD BUTTON -->
+                    <button name="sold_action"
+                            string="Sold"
+                            type="object"
+                            class="btn btn-primary"
+                            modifiers="{'invisible': ['|', ('state', '=', 'sold'), ('state', '=', 'canceled')]}"/>
+
+                    <!-- CANCEL BUTTON -->
+                    <button name="cancel_action"
+                            string="Cancel"
+                            type="object"
+                            class="btn btn-secondary"
+                            modifiers="{'invisible': ['|', ('state', '=', 'sold'), ('state', '=', 'cancelled')]}"/>
+                </header>
+
+                <sheet>
+
+                    <!-- TITLE -->
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <field name="property_tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </div>
+
+                    <!-- MAIN GROUP -->
+                    <group>
+                        <group>
+                            <field name="state"
+                                   readonly="1"
+                                   widget="statusbar"
+                                   statusbar_visible="new,offer_received,offer_accepted,sold,cancelled"/>
+                            <field name="property_type_id"/>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                            <field name="best_price"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="fascades"/>
+                        </group>
+                        <group>
+                            <field name="garage"/>
+                            <field name="garden"/>
+                            <field name="garden_area"  modifiers="{'invisible':[('garden','=',False)]}"/>
+                            <field name="garden_orientation" modifiers="{'invisible':[('garden_orienatation','=',False)]}"/>
+                            <field name="total_area"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <!-- NOTEBOOK -->
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids" modifiers="{'readonly': [('state','in',['offer accepted','sold','cancelled'])]}"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="buyer_id"/>
+                                <field name="salesperson_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================
+         SEARCH VIEW
+    =============================== -->
+    <record id="estate_property_search_view" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Properties">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="expected_price"/>
+
+                <filter name="filter_garden" string="Has Garden" domain="[('garden','=',True)]"/>
+                <filter name="filter_available" string="Available Now" domain="[('date_availability','=',context_today())]"/>
+                <filter name="filter_expensive" string="Expensive" domain="[('expected_price','&gt;=',100000)]"/>
+                <filter name="filter_average" string="Average" domain="[('expected_price','&gt;=',50000),('expected_price','&lt;',100000)]"/>
+                <filter name="filter_low" string="Low" domain="[('expected_price','&lt;',50000)]"/>
+
+                <group>
+                    <filter name="state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="garden" string="Garden" context="{'group_by': 'garden'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================
+         ACTION
+    =============================== -->
+    <record id="action_estate_property_list" model="ir.actions.act_window">
+        <field name="name">List Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

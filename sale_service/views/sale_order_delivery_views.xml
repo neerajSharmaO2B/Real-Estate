@@ -1,0 +1,25 @@
+<odoo>
+
+    <record id="view_ss_sale_order_form_inherit_delivery" model="ir.ui.view">
+        <field name="name">ss.sale.order.form.delivery.inherit</field>
+        <field name="model">ss.sale.order</field>
+        <field name="inherit_id" ref="sale_service.view_ss_sale_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="delivery_status"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_ss_sale_order_list_inherit_delivery" model="ir.ui.view">
+        <field name="name">ss.sale.order.list.delivery.inherit</field>
+        <field name="model">ss.sale.order</field>
+        <field name="inherit_id" ref="sale_service.view_ss_sale_order_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="delivery_status"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
